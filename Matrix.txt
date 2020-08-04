@@ -1,0 +1,572 @@
+#include <iostream>
+#include <ctime>
+using namespace std;
+int main()
+{
+	int toplam=0;
+	int Matris_Boyutu;
+	srand(time(NULL));
+	
+	do { //Matrisin boyutunu sormak için kullandýðýmýz döngü
+
+		cout << "Matris Boyutu..: ";
+		cin >> Matris_Boyutu;
+
+		if (!(Matris_Boyutu >= 5 && Matris_Boyutu <= 25)) // Eðer kullanýcý yanlýþ deðer girdiyse onu ekrana yazdýran döngü
+		{
+			cout << " Matris_Boyutu Hatali... Tekrar Deneyiniz..." << endl;
+		}
+	} while (!(Matris_Boyutu >= 5 && Matris_Boyutu <= 25)); //Matrisin boyutunu sormak için kullanýlan döngü
+
+	int matris[25][25]; //Matrisi tanýmladýk
+	
+	cout << "\t"; 
+
+	for (int i = 0; i < Matris_Boyutu; i++) // Matrisi þekillendirmek için kullanýlan döngü
+	{
+
+		cout << i+1;
+		cout << "    ";
+	}
+
+	cout << endl;
+
+	cout << "    ";
+
+	for (int i = 0; i < Matris_Boyutu+1; i++) // Matrisi þekillendirmek için kullanýlan döngü
+	{
+
+		cout << "_____";
+
+
+
+
+	}
+	cout << endl;
+	cout << endl;
+
+	for (int i= 0; i < Matris_Boyutu; i++) // Matrisi þekillendirmek için kullanýlan döngü ve amtrisi ekrana yazdýran döngünün denetleyicisi
+	{
+
+		cout << i+1;
+		cout << " ";
+
+		cout << "|";
+
+		cout << "     ";
+
+		 for(int j = 0; j < Matris_Boyutu; j++) // Matrisi ekrana yazdýran döngü
+		 {
+			 int x = rand() % 9 + 1;
+			 matris[i][j] = x;
+			 toplam += x;	
+		 }
+
+		
+
+		for (int j = 0; j < Matris_Boyutu; j++) // Matrisi þekillendirmek için kullanýlan döngü
+		{
+			cout << matris[i][j] << "    ";
+
+
+
+		}
+
+		
+		cout << endl;
+		
+		cout << endl;
+
+
+
+
+
+
+	}
+
+	int secim;
+
+	cout << " Islemler :" << endl; // Matris iþlemlerini sormak
+
+	cout << "1. Islem : Sutun satir degistir." << endl; // Matris iþlemlerini sormak
+	cout << "2. Islem : Tekleri basa al (satir)." << endl; // Matris iþlemlerini sormak
+	cout << "3. Islem : Ters cevir (sutun)." << endl; // Matris iþlemlerini sormak
+	cout << "4. Islem : Toplamlari yaz." << endl; // Matris iþlemlerini sormak
+
+	do { // Matris iþlemlerini sormak için kullanýlan döngü
+
+		cout << "Islem giriniz..:";
+		cin >> secim;
+
+		if (!(secim >= 1 && secim <= 4)) // Eðer iþlem doðru aralýkta girilmeezse onun hatasýný veren döngü
+		{
+
+			cout << " Boyle bir islem bulunmamakta tekrar deneyiniz...";
+
+		}
+
+		cout << endl;
+
+	} while (!(secim >= 1 && secim <= 4)); // Matris iþlemlerini sormak için kullanýlan döngü
+
+
+	if (secim == 1) // 1.Ýþlem // Ýlk iþlemin 1 tuþuna basarak seçececeðimiz if döngüsü
+	{
+		int satir;
+		int sutun;
+		
+		
+		do { //Satir deðerinin doðru girilip girilmediðini kontrol eden döngü
+
+
+			cout << "Satir degeri giriniz..:" << endl;
+			cin >> satir;
+			
+
+			if (satir > Matris_Boyutu ) // Eðer satýr deðeri doðru girilmediði taktirde ekrana uyarý veren if döngüsü
+			{
+
+				cout << " Satir degeri matris boyutundan buyuk olamaz tekrar deneyiniz...";
+
+			}
+			
+			
+
+		} while (satir > Matris_Boyutu); //Satir deðerinin doðru girilip girilmediðini kontrol eden döngü
+
+		cout << endl;
+
+		do {//Sutun deðerinin doðru girilip girilmediðini kontrol eden döngü
+
+
+
+			cout << "Sutun degerini giriniz...:" << endl;
+			cin >> sutun;
+
+
+			if (sutun > Matris_Boyutu)// Eðer sutun deðeri doðru girilmediði taktirde ekrana uyarý veren if döngüsü
+			{
+
+				cout << " Sutun degeri matris boyutundan buyuk olamaz tekrar deneyiniz...";
+
+			}
+
+	
+
+		} while (sutun > Matris_Boyutu);//Sutun deðerinin doðru girilip girilmediðini kontrol eden döngü
+		
+		int referansmatris[25][25]; // Arka planda iþlemleri yapabileceðimiz bir 2 boyutlu referans matris tanýmladýk
+
+		for (int i = 0; i < Matris_Boyutu; i++) // Referans matrisi normal matrise eþitlemek için kurulan döngü
+		{
+			for (int j = 0; j < Matris_Boyutu; j++) // Referans matrisi normal matrise eþitlemek için kurulan döngü
+			{
+				referansmatris[i][j] = matris[i][j];
+			}
+		}
+		for (int i = 0; i < Matris_Boyutu; i++) //Referans matris ile normal matrisin satýr ve sütunlarýndaki deðerlerin birbirine eþitlenmesi
+		{
+			referansmatris[satir - 1][i] = matris[i][sutun - 1];
+
+			referansmatris[i][sutun - 1] = matris[satir - 1][i];
+		}
+		int degisim= matris[satir - 1][satir - 1] + matris[sutun - 1][sutun - 1]; // Satýr ve sütunun kesiþtiði noktadaki sayýlarýn toplanmasý
+		
+		referansmatris[satir - 1][sutun - 1] = degisim;
+
+		for (int i = 0; i < Matris_Boyutu; i++) //Deðiþen matrisi ekrana yazdýrma
+		{
+			for (int j = 0; j < Matris_Boyutu; j++)
+			{
+				cout << referansmatris;
+			}
+			cout << endl;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		}
+	}
+
+	if (secim == 2) // 2. Ýþlem // Ýþlemi 2 tuþuna basarak seçeceðimiz if döngüsü
+	{
+		int satirno;
+
+		do { // Satir deðerini soran döngü
+
+
+			cout << "Satir degeri giriniz..:" << endl;
+			cin >> satirno;
+			
+
+			if (satirno > Matris_Boyutu ) // Eðer satýr deðeri doðru girilmediyse ekrana uyarý verdiren döngü
+			{
+
+				cout << " Satir degeri matris boyutundan buyuk olamaz tekrar deneyiniz...";
+
+			}
+			
+			
+
+		} while (satirno > Matris_Boyutu);// Satir deðerini soran döngü
+
+
+
+
+		int referansmatris[25]; // Ýþlemleri arka planda yapabilmek için atadýðýmýz tek boyutlu bir matris
+
+		for (int i = 0; i < Matris_Boyutu; i++) // Atadýðýmýz tek boyutlu matrisi normal matrise eþitlemek
+		{
+			referansmatris[i] = matris[satirno - 1][i];
+		}
+
+
+		int i = 0;
+		int j = Matris_Boyutu - 1;
+
+		for (int t = 0; t < Matris_Boyutu; t++) // Sayýlarýn tek çift olduðunun anlamamýzý saðlayan döngüleri denetleyen döngü
+		{
+			if (matris[satirno - 1][t] % 2 == 0) // Çift sayý olursa sondan yazdýran döngü
+			{
+				referansmatris[j] = matris[satirno - 1][t];
+				j--;
+			}
+			if (matris[satirno - 1][t] % 2 == 1) // Tek sayý olursa baþtan yazan döngü
+			{
+				referansmatris[i] = matris[satirno - 1][t];
+				i++;
+			}
+		}
+
+		for (int i = 0; i < Matris_Boyutu; i++) // Tek ve çift sayý olup olmadýðýný denetleyip onlarý referans matrise eþitleyen matris
+		{
+			matris[satirno - 1][i] = referansmatris[i];
+		}
+
+
+		cout << "\t";
+
+		for (int i = 0; i < Matris_Boyutu; i++) // Matrisi þekillendirmek için kullanýlan döngü
+		{
+
+			cout << i + 1;
+			cout << "    ";
+		}
+
+		cout << endl;
+
+		cout << "    ";
+
+		for (int i = 0; i < Matris_Boyutu + 1; i++) // Matrisi þekillendirmek için kullanýlan döngü
+		{
+
+			cout << "_____";
+
+
+
+
+		}
+		cout << endl;
+		cout << endl;
+
+
+		for (int i = 0; i < Matris_Boyutu; i++) // Matrisi þekillendirmek için kullanýlan döngü
+		{
+
+			cout << i + 1;
+			cout << " ";
+
+			cout << "|";
+
+			cout << "     ";
+
+			for (int j = 0; j < Matris_Boyutu; j++) // Matrisi þekillendirmek ve matrisi ekrana yazdýrmak için kullanýlan döngü
+			{
+
+				cout << matris[i][j] << "    ";
+
+			}
+			cout << endl;
+			cout << endl;
+
+		}
+
+
+
+
+
+
+
+
+
+			
+
+
+	}
+
+
+
+	if (secim == 3) // 3.Ýþlem
+	{
+		int sutun;
+		int referansmatris[25]; // Ýþlemleri arka planda yapabileceðimiz bir referans matris
+
+		do { // Sutun degerini soran döngü
+
+			cout << "Bir sutun degeri giriniz..:" << endl;
+			cin >> sutun;
+
+			if (sutun > Matris_Boyutu) // Eðer sutun degeri buyukse ekrana uyarý veren döngü
+			{
+
+				cout << " Sutun degeri matris boyutundan buyuk olamaz tekrar deneyiniz";
+
+			}
+
+		} while (sutun> Matris_Boyutu);// Sutun degerini soran döngü
+
+		
+		cout << endl;
+
+		for (int i = 0; i < Matris_Boyutu; i++) //Referans matrisi normal matrise eþitleyen döngü
+		{
+			referansmatris[i] = matris[i][sutun-1];
+		}
+
+		for (int i = Matris_Boyutu - 1,j = 0; i >= 0; i--,j++) //
+		{
+			matris[i][sutun-1] = referansmatris[j]  ;
+		}
+
+		cout << "\t";
+
+		for (int i = 0; i < Matris_Boyutu; i++) // Matrisi þekillendirmek için kullanýlan döngü
+		{
+
+			cout << i + 1;
+			cout << "    ";
+		}
+
+		cout << endl;
+
+		cout << "    ";
+
+		for (int i = 0; i < Matris_Boyutu + 1; i++) // Matrisi þekillendirmek için kullanýlan döngü
+		{
+
+			cout << "_____";
+
+
+
+
+		}
+		cout << endl;
+		cout << endl;
+
+
+		for (int i = 0; i < Matris_Boyutu; i++) // Matrisi þekillendirmek için kullanýlan döngü
+		{
+
+			cout << i + 1;
+			cout << " ";
+
+			cout << "|";
+
+			cout << "     ";
+
+			for (int j = 0; j < Matris_Boyutu; j++) // Matrisi þekillendirmek ve ekrana yazdýrmak için kullanýlan döngü
+			{
+
+				cout << matris[i][j] << "    ";
+
+			}
+			cout << endl;
+			cout << endl;
+
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+	}
+
+	if (secim == 4) //4. Ýþlem
+	{
+		int matris2[25];
+
+		for (int i = 0; i < Matris_Boyutu; i++)
+		{
+			for (int j = 0,t=0; j < Matris_Boyutu; j++, t++)
+			{
+				matris2[t] = matris[i][j];
+				cout << matris2[t] << endl;
+			}
+		}
+		
+		int boyut = Matris_Boyutu * Matris_Boyutu;
+
+		matris2[25] = toplam;
+
+		for (int i = 1; i <= boyut; i++)
+		{
+			int number_hold2 = matris2[i];
+			matris2[i] = matris2[i - 1] - number_hold2;
+		}
+		for (int i = 0; i < Matris_Boyutu; i++)
+		{
+			for (int j = 0; j < Matris_Boyutu; j++)
+			{
+				cout << matris2[((i + 1) * (j + 1)) - 1];
+			}
+			cout << endl;
+
+
+
+
+
+		}
+
+
+
+
+
+
+
+
+
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+	
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
